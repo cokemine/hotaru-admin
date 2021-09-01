@@ -2,9 +2,9 @@ import React, { FC, useEffect, useState } from 'react';
 
 import { Typography, Table, Tag, Modal, Input, Form, Switch, Button } from 'antd';
 import axios from 'axios';
-import { IResp, RowServer } from '../types';
 import { ColumnsType } from 'antd/es/table';
 import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { IResp, RowServer } from '../types';
 
 const { Title } = Typography;
 
