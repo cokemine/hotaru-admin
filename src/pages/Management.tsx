@@ -13,6 +13,7 @@ const Management: FC = () => {
   const [dataSource, setDataSource] = useState<Array<RowServer>>([]);
   const [modifyVisible, setModifyVisible] = useState<boolean>(false);
   const [currentNode, setCurrentNode] = useState<string>('');
+  const [multiImport, setMultiImport] = useState<boolean>(false);
   const [form] = Form.useForm();
   const { confirm } = Modal;
 
@@ -107,6 +108,7 @@ const Management: FC = () => {
     fetch && fetchServers();
     form.resetFields();
     setCurrentNode('');
+    setMultiImport(false);
     setModifyVisible(false);
   };
 
@@ -131,7 +133,14 @@ const Management: FC = () => {
       <Table
         dataSource={ dataSource }
         columns={ columns }
-        footer={ () => <Button type="primary" onClick={ () => setModifyVisible(true) }>New</Button> }
+        footer={ () => (
+          <>
+            <Button type="primary" className="mr-6" onClick={ () => setModifyVisible(true) }>New</Button>
+            <Button type="primary" onClick={ () => {
+              setMultiImport(true); setModifyVisible(true);
+            } }>Import</Button>
+          </>
+        ) }
       />
       <Modal
         title={ currentNode ? 'Modify Configuration' : 'New' }
@@ -140,27 +149,35 @@ const Management: FC = () => {
         onCancel={ resetStatus(false) }
       >
         <Form layout="vertical" form={ form }>
-          <Form.Item label="Username" name="username">
-            <Input />
-          </Form.Item>
-          <Form.Item label="Password" name="password">
-            <Input placeholder="留空不修改" />
-          </Form.Item>
-          <Form.Item label="Name" name="name">
-            <Input />
-          </Form.Item>
-          <Form.Item label="Type" name="type">
-            <Input />
-          </Form.Item>
-          <Form.Item label="Location" name="location">
-            <Input />
-          </Form.Item>
-          <Form.Item label="Region" name="region">
-            <Input />
-          </Form.Item>
-          <Form.Item label="Disabled" name="disabled" valuePropName="checked">
-            <Switch />
-          </Form.Item>
+          {multiImport ? (
+            <Form.Item label="Data" name="data">
+              <Input.TextArea rows={ 4 } />
+            </Form.Item>
+          ) : (
+            <>
+              <Form.Item label="Username" name="username">
+                <Input />
+              </Form.Item>
+              <Form.Item label="Password" name="password">
+                <Input placeholder="留空不修改" />
+              </Form.Item>
+              <Form.Item label="Name" name="name">
+                <Input />
+              </Form.Item>
+              <Form.Item label="Type" name="type">
+                <Input />
+              </Form.Item>
+              <Form.Item label="Location" name="location">
+                <Input />
+              </Form.Item>
+              <Form.Item label="Region" name="region">
+                <Input />
+              </Form.Item>
+              <Form.Item label="Disabled" name="disabled" valuePropName="checked">
+                <Switch />
+              </Form.Item>
+            </>
+          )}
         </Form>
       </Modal>
     </>
