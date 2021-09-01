@@ -1,5 +1,6 @@
 const CracoAntDesignPlugin = require('craco-antd');
 const path = require('path');
+const tailwindcss = require('tailwindcss');
 module.exports = {
   plugins: [
     {
@@ -8,7 +9,7 @@ module.exports = {
   ],
   style: {
     postcss: {
-      plugins: [require('tailwindcss'), require('autoprefixer')]
+      plugins: [ tailwindcss(path.resolve(__dirname, './tailwind.config.js')), require('autoprefixer') ]
     }
   },
   webpack: {
