@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { Drawer, Layout as AntdLayout } from 'antd';
 import routes from '../routes/admin';
@@ -44,8 +44,8 @@ const Layout: FC = () => {
           <div className="container mx-auto px-6 max-w-screen-xl">
             <StatusContextProvider>
               <Switch>
-                {routes.map(route => <Route exact key={ route.path } path={ `/admin${route.path}` } component={ route.component } />)}
-                <Redirect exact from="/admin" to="/admin/dashboard" />
+                {routes.map(route => <Route exact key={ route.path } path={ `${route.path}` } component={ route.component } />)}
+                <Redirect exact from="/" to="/dashboard" />
               </Switch>
             </StatusContextProvider>
           </div>

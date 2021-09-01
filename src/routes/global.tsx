@@ -5,17 +5,13 @@ import { isValid } from '../utils';
 const routes = [
   {
     path: '/',
-    component: lazy(() => isValid().then(valid => ({ default: () => <Redirect to={ valid ? '/admin' : '/login' } /> })))
+    exact: false,
+    component: lazy(() => import('../containers/LayoutHandler'))
   },
   {
     path: '/login',
     component: lazy(() => import('../pages/Login'))
   },
-  {
-    path: '/admin',
-    exact: false,
-    component: lazy(() => import('../containers/LayoutHandler'))
-  }
 ];
 
 export default routes;
