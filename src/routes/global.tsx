@@ -1,16 +1,14 @@
 import React, { lazy } from 'react';
-import { Redirect } from 'react-router';
-import { isValid } from '../utils';
 /* eslint-disable react/display-name */
 const routes = [
+  {
+    path: '/login',
+    component: lazy(() => import('../pages/Login'))
+  },
   {
     path: '/',
     exact: false,
     component: lazy(() => import('../containers/LayoutHandler'))
-  },
-  {
-    path: '/login',
-    component: lazy(() => import('../pages/Login'))
   },
 ];
 

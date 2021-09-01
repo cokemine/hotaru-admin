@@ -20,7 +20,7 @@ const Login: FC = () => {
     const data = res.data;
     if (!data.code) {
       localStorage.setItem('token', data.data as string);
-      history.push('/admin');
+      history.push('/dashboard');
     }
   };
 

@@ -9,22 +9,22 @@ const menus = [
   {
     title: 'Dashboard',
     icon: <DashboardOutlined />,
-    link: '/admin/dashboard'
+    link: '/dashboard'
   },
   {
     title: 'Management',
     icon: <ProfileFilled />,
-    link: '/admin/management'
+    link: '/management'
   },
   {
     title: 'Statistics',
     icon: <PieChartFilled />,
-    link: '/admin/statistics'
+    link: '/statistics'
   },
   {
     title: 'Alert',
     icon: <AlertFilled />,
-    link: '/admin/alert'
+    link: '/alert'
   }
 ];
 

@@ -33,7 +33,7 @@ axios.interceptors.response.use(response => {
 
 const App: FC = () => {
   return (
-    <Router basename="/admin">
+    <Router basename={ '/admin' }>
       <Suspense fallback={ <Loading /> }>
         <Switch>
           {
