@@ -20,7 +20,7 @@ export const StatusContextProvider: FC = ({ children }) => {
   const [status, setStatus] = useState<IContext>({ servers: [], updated: 0 });
 
   useEffect(() => {
-    const ws = new WebSocket('ws://127.0.0.1:35601/public');
+    const ws = new WebSocket(`${document.location.protocol.replace('http', 'ws')}${window.location.host}/public`);
     ws.onopen = () => console.log('Connect to backend successfully!');
     ws.onclose = evt => console.log(`WebSocket disconnected: ${evt.reason}`);
     ws.onerror = evt => console.log(`An error occurred while connecting to the backend, ${evt}`);
