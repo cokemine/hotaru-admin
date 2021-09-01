@@ -1,5 +1,4 @@
-import React, { lazy } from 'react';
-/* eslint-disable react/display-name */
+import { lazy } from 'react';
 const routes = [
   {
     path: '/login',

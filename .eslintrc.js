@@ -21,10 +21,12 @@ module.exports = {
     quotes: [1, 'single'],
     'brace-style': [1, '1tbs'],
     'object-curly-spacing': [1, 'always'],
-    'react/jsx-curly-spacing': [1, 'always'],
     'require-await': 2,
     'no-return-await': 2,
-    'react/prop-types': 0
+    '@typescript-eslint/no-explicit-any': 0,
+    'react/jsx-curly-spacing': [1, 'always'],
+    'react/prop-types': 0,
+    'react/jsx-tag-spacing': [1, { beforeSelfClosing: 'always' }]
   },
   settings: {
     react: {

@@ -1,5 +1,5 @@
-import React, { FC, useRef } from 'react';
-import { Link, Redirect, useHistory } from 'react-router-dom';
+import React, { FC } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Form, Input, Button } from 'antd';
 import axios from 'axios';
 
