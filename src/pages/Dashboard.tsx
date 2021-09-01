@@ -52,7 +52,7 @@ const Dashboard: FC = () => {
       // eslint-disable-next-line react/display-name
       render(_, record) {
         return (
-          <div className="flex items-center text-xs">
+          <div className="flex items-center text-sm">
             <svg viewBox="0 0 100 100" className="mr-3 block h-12 w-12">
               <use xlinkHref={ `#${record.region}` } />
             </svg>
