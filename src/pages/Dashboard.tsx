@@ -7,7 +7,7 @@ import { BiServer } from 'react-icons/bi';
 import { AiFillWarning } from 'react-icons/ai';
 import { HiOutlineStatusOnline } from 'react-icons/hi';
 import RoundIcon from '../components/RoundIcon';
-import { StatusContext } from '../Context/StatusContext';
+import { StatusContext } from '../context/StatusContext';
 
 import { ITable } from '../types';
 import { useState } from 'react';
