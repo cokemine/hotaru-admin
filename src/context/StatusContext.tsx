@@ -56,13 +56,14 @@ export const StatusContextProvider: FC = ({ children }) => {
         timeSince: getTimeSince(updated)
       };
       for (const item of servers) {
+        const isOnline = item.status.online4 || item.status.online6;
         value.servers.push({
           name: item.name,
           location: item.location,
           region: item.region,
-          load: item.status.load || '-',
-          uptime: item.status.uptime || '-',
-          status: item.status.online4 || item.status.online6
+          load: isOnline ? item.status.load : '-',
+          uptime: isOnline ? item.status.uptime : '-',
+          status: isOnline
         });
       }
       setStatus(value);
