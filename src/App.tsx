@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { notification } from 'antd';
 import axios from 'axios';
 import routes from './routes/global';
-import './App.less';
+import './App.css';
 import { IResp } from './types';
 import Loading from './components/Loading';
 

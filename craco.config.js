@@ -1,12 +1,6 @@
-const CracoAntDesignPlugin = require('craco-antd');
 const path = require('path');
 const tailwindcss = require('tailwindcss');
 module.exports = {
-  plugins: [
-    {
-      plugin: CracoAntDesignPlugin
-    }
-  ],
   style: {
     postcss: {
       plugins: [ tailwindcss(path.resolve(__dirname, './tailwind.config.js')), require('autoprefixer') ]
