@@ -16,7 +16,7 @@ const { Title } = Typography;
 const Dashboard: FC = () => {
 
   const { servers, timeSince } = useContext(StatusContext);
-  const [count, setCount] = useState({
+  const [ count, setCount ] = useState({
     online: 0,
     min: Infinity,
     max: 0,
@@ -42,7 +42,7 @@ const Dashboard: FC = () => {
       max = Math.max(min, record[item.region]);
     }
     setCount({ min, max, online, record });
-  }, [servers]);
+  }, [ servers ]);
 
   const columns: ColumnsType<ITable> = [
     {
@@ -53,11 +53,11 @@ const Dashboard: FC = () => {
         return (
           <div className="flex items-center text-sm">
             <svg viewBox="0 0 100 100" className="mr-3 block h-12 w-12">
-              <use xlinkHref={ `#${record.region}` } />
+              <use xlinkHref={ `#${ record.region }` } />
             </svg>
             <div className="whitespace-nowrap">
-              <p className="font-semibold">{record.name}</p>
-              <p className="text-left text-xs text-gray-600">{record.location}</p>
+              <p className="font-semibold">{ record.name }</p>
+              <p className="text-left text-xs text-gray-600">{ record.location }</p>
             </div>
           </div>
         );
@@ -85,15 +85,15 @@ const Dashboard: FC = () => {
         let str = '-';
         if (uptime !== '-') {
           if (uptime >= 86400)
-            str = `${Math.floor(uptime / 86400)} 天`;
+            str = `${ Math.floor(uptime / 86400) } 天`;
           else {
             let h: string | number = Math.floor(uptime / 3600);
             let m: string | number = Math.floor(uptime / 60 % 60);
             let s: string | number = Math.floor(uptime % 60);
-            h < 10 && (h = `0${h}`);
-            m < 10 && (m = `0${m}`);
-            s < 10 && (s = `0${s}`);
-            str = `${h}:${m}:${s}`;
+            h < 10 && (h = `0${ h }`);
+            m < 10 && (m = `0${ m }`);
+            s < 10 && (s = `0${ s }`);
+            str = `${ h }:${ m }:${ s }`;
           }
         }
         return str;
@@ -146,7 +146,7 @@ const Dashboard: FC = () => {
         className="rounded-lg max-w-full"
         dataSource={ servers }
         columns={ columns }
-        footer={ () => <span className="text-xs">最后更新: {timeSince}</span> }
+        footer={ () => <span className="text-xs">最后更新: { timeSince }</span> }
       />
     </>
   );

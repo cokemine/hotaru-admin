@@ -23,7 +23,10 @@ export const isValid = async (): Promise<boolean> => {
   return false;
 };
 
-export const notify = (message: string, description: string | undefined, type: 'success' | 'error' | 'info' | 'warning' | 'open' = 'open'): void => {
+export const notify = (
+  message: string, description: string | undefined,
+  type: 'success' | 'error' | 'info' | 'warning' | 'open' = 'open'
+): void => {
   notification[type]({
     message,
     description: description === 'ok' ? undefined : description

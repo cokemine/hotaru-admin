@@ -31,17 +31,19 @@ const menus = [
 interface Props {
   isCollapsed: boolean;
 }
+
 const Sider: FC<Props> = ({ isCollapsed }) => {
 
   return (
     <>
       <img src={ logo } alt="" className="m-auto p-4 lg:hidden" draggable="false" />
-      <img src={ isCollapsed ? smallLogo : logo } alt="" className="hidden lg:inline-block  m-auto p-4" draggable="false" />
+      <img src={ isCollapsed ? smallLogo : logo } alt="" className="hidden lg:inline-block  m-auto p-4"
+        draggable="false" />
       <Menu theme="dark" mode="inline">
         {
           menus.map((item, i) =>
             <Menu.Item key={ i } icon={ item.icon } className="h-12" style={ { lineHeight: '3rem' } }>
-              <NavLink to={ item.link }>{item.title}</NavLink>
+              <NavLink to={ item.link }>{ item.title }</NavLink>
             </Menu.Item>)
         }
       </Menu>

@@ -47,13 +47,13 @@ const Login: FC = () => {
             >
               <Form.Item
                 name="username"
-                rules={ [{ required: true, message: 'Please input your Username!' }] }
+                rules={ [ { required: true, message: 'Please input your Username!' } ] }
               >
                 <Input size="large" prefix={ <UserOutlined /> } placeholder="Username" />
               </Form.Item>
               <Form.Item
                 name="password"
-                rules={ [{ required: true, message: 'Please input your Password!' }] }
+                rules={ [ { required: true, message: 'Please input your Password!' } ] }
               >
                 <Input size="large"
                   prefix={ <LockOutlined /> }

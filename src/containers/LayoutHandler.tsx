@@ -5,7 +5,7 @@ import Loading from '../components/Loading';
 import { isValid } from '../utils';
 
 const LayoutHandler: FC = () => {
-  const [valid, setValid] = useState<boolean>();
+  const [ valid, setValid ] = useState<boolean>();
   useEffect(() => {
     isValid().then(valid => setValid(valid));
   }, []);

@@ -11,11 +11,11 @@ const { Title } = Typography;
 
 const Management: FC = () => {
 
-  const [dataSource, setDataSource] = useState<Array<RowServer>>([]);
-  const [modifyVisible, setModifyVisible] = useState<boolean>(false);
-  const [currentNode, setCurrentNode] = useState<string>('');
-  const [multiImport, setMultiImport] = useState<boolean>(false);
-  const [form] = Form.useForm();
+  const [ dataSource, setDataSource ] = useState<Array<RowServer>>([]);
+  const [ modifyVisible, setModifyVisible ] = useState<boolean>(false);
+  const [ currentNode, setCurrentNode ] = useState<string>('');
+  const [ multiImport, setMultiImport ] = useState<boolean>(false);
+  const [ form ] = Form.useForm();
   const { confirm } = Modal;
 
   const columns: ColumnsType<RowServer> = [
@@ -28,11 +28,11 @@ const Management: FC = () => {
         return (
           <div className="flex items-center text-sm">
             <svg viewBox="0 0 100 100" className="mr-3 block h-12 w-12">
-              <use xlinkHref={ `#${record.region}` } />
+              <use xlinkHref={ `#${ record.region }` } />
             </svg>
             <div className="whitespace-nowrap">
-              <p className="font-semibold">{record.name}</p>
-              <p className="text-left text-xs text-gray-600">{record.location}</p>
+              <p className="font-semibold">{ record.name }</p>
+              <p className="text-left text-xs text-gray-600">{ record.location }</p>
             </div>
           </div>
         );
@@ -131,7 +131,7 @@ const Management: FC = () => {
   };
 
   const handleDelete = (username: string) => () => {
-    axios.delete(`/api/server/${username}`).then(res => {
+    axios.delete(`/api/server/${ username }`).then(res => {
       notify('Success', res.data.msg, 'success');
       resetStatus();
     });
@@ -159,7 +159,7 @@ const Management: FC = () => {
         onCancel={ () => resetStatus(false) }
       >
         <Form layout="vertical" form={ form }>
-          {multiImport ? (
+          { multiImport ? (
             <Form.Item label="Data" name="data">
               <Input.TextArea rows={ 4 } />
             </Form.Item>
@@ -187,7 +187,7 @@ const Management: FC = () => {
                 <Switch />
               </Form.Item>
             </>
-          )}
+          ) }
         </Form>
       </Modal>
     </>

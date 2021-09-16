@@ -9,13 +9,13 @@ import { StatusContextProvider } from '../context/StatusContext';
 
 
 const Layout: FC = () => {
-  const [collapsed, setCollapsed] = useState(false);
+  const [ collapsed, setCollapsed ] = useState(false);
 
   const toggleCollapsed = () => setCollapsed(state => !state);
 
   return (
     <AntdLayout className="min-h-screen">
-      {/* Desktop SideBar */}
+      { /* Desktop SideBar */ }
       <AntdLayout.Sider
         collapsible
         collapsed={ collapsed }
@@ -25,7 +25,7 @@ const Layout: FC = () => {
       >
         <Sider isCollapsed={ collapsed } />
       </AntdLayout.Sider>
-      {/* Mobile SideBar */}
+      { /* Mobile SideBar */ }
       <Drawer
         placement="left"
         className="block lg:hidden"
@@ -44,7 +44,8 @@ const Layout: FC = () => {
           <div className="container mx-auto px-6 max-w-screen-xl">
             <StatusContextProvider>
               <Switch>
-                {routes.map(route => <Route exact key={ route.path } path={ `${route.path}` } component={ route.component } />)}
+                { routes.map(route => <Route exact key={ route.path } path={ `${ route.path }` }
+                  component={ route.component } />) }
                 <Redirect exact from="/" to="/dashboard" />
               </Switch>
             </StatusContextProvider>
