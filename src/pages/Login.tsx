@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Form, Input, Button } from 'antd';
 import axios from 'axios';
+import { notify } from '../utils';
 
 import ImageLight from '../assets/img/login-office.jpeg';
 
@@ -19,6 +20,7 @@ const Login: FC = () => {
     const res = await axios.post<IResp>('/api/session', { username, password });
     const data = res.data;
     if (!data.code) {
+      notify('Success', undefined, 'success');
       localStorage.setItem('token', data.data as string);
       history.push('/dashboard');
     }

@@ -2,17 +2,34 @@
   "name": "hotaru-admin",
   "version": "0.1.0",
   "private": true,
-  "license": "MIT",
-  "author": "Kagurazaka Mizuki",
   "repository": {
     "type": "git",
     "url": "https://github.com/cokemine/hotaru-admin.git"
   },
+  "license": "MIT",
+  "author": "Kagurazaka Mizuki",
   "scripts": {
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
     "lint": "eslint ./src --ext .tsx --ext .ts --ext .js --ext .jsx --fix"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
   },
   "devDependencies": {
     "@ant-design/icons": "^4.6.4",
@@ -34,22 +51,5 @@
     "svg-sprite-loader": "^6.0.9",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "typescript": "^4.1.2"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
   }
 }

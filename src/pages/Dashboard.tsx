@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import { Col, Row, Typography, Table, Tag } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import StateCard from '../components/StateCard';
@@ -10,7 +10,6 @@ import RoundIcon from '../components/RoundIcon';
 import { StatusContext } from '../context/StatusContext';
 
 import { ITable } from '../types';
-import { useState } from 'react';
 
 const { Title } = Typography;
 

@@ -1,3 +1,4 @@
+import { notification } from 'antd';
 import axios from 'axios';
 import { IResp } from '../types';
 
@@ -20,4 +21,11 @@ export const isValid = async (): Promise<boolean> => {
     return false;
   }
   return false;
+};
+
+export const notify = (message: string, description: string | undefined, type: 'success' | 'error' | 'info' | 'warning' | 'open' = 'open'): void => {
+  notification[type]({
+    message,
+    description: description === 'ok' ? undefined : description
+  });
 };

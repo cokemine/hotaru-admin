@@ -1,33 +1,21 @@
 import React, { FC, Suspense } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { notification } from 'antd';
 import axios from 'axios';
 import routes from './routes/global';
 import './App.css';
 import { IResp } from './types';
 import Loading from './components/Loading';
+import { notify } from './utils';
 
 axios.interceptors.request.use(config => {
   const token = localStorage.getItem('token');
   config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
-axios.interceptors.response.use(response => {
-  const data: IResp = response.data;
-  let desc: string | undefined;
-  data.msg !== 'ok' && (desc = data.msg);
-  notification.success({
-    message: 'Success',
-    description: desc
-  });
-  return response;
-}, error => {
+axios.interceptors.response.use(_ => _, error => {
   const resp = error.response;
   const data: IResp = resp.data;
-  notification.error({
-    message: `${resp.status} ${resp.statusText}`,
-    description: data?.msg
-  });
+  notify(`${resp.status} ${resp.statusText}`, data?.msg, 'error');
   return Promise.reject(error);
 });
 

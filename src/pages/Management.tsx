@@ -5,6 +5,7 @@ import axios from 'axios';
 import { ColumnsType } from 'antd/es/table';
 import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { IResp, RowServer } from '../types';
+import { notify } from '../utils';
 
 const { Title } = Typography;
 
@@ -104,7 +105,7 @@ const Management: FC = () => {
 
   useEffect(fetchServers, []);
 
-  const resetStatus = (fetch = true) => () => {
+  const resetStatus = (fetch = true) => {
     fetch && fetchServers();
     form.resetFields();
     setCurrentNode('');
@@ -114,17 +115,26 @@ const Management: FC = () => {
 
   const handleModify = () => {
     const data = form.getFieldsValue();
-    axios.put('/api/server', { username: currentNode, data }).then(resetStatus());
+    axios.put<IResp>('/api/server', { username: currentNode, data }).then(res => {
+      notify('Success', res.data.msg, 'success');
+      resetStatus();
+    });
   };
 
 
   const handleCreate = () => {
     const data = form.getFieldsValue();
-    axios.post('/api/server', { ...data }).then(resetStatus());
+    axios.post<IResp>('/api/server', { ...data }).then(res => {
+      notify('Success', res.data.msg, 'success');
+      resetStatus();
+    });
   };
 
   const handleDelete = (username: string) => () => {
-    axios.delete(`/api/server/${username}`).then(resetStatus());
+    axios.delete(`/api/server/${username}`).then(res => {
+      notify('Success', res.data.msg, 'success');
+      resetStatus();
+    });
   };
 
   return (
@@ -146,7 +156,7 @@ const Management: FC = () => {
         title={ currentNode ? 'Modify Configuration' : 'New' }
         visible={ modifyVisible }
         onOk={ currentNode ? handleModify : handleCreate }
-        onCancel={ resetStatus(false) }
+        onCancel={ () => resetStatus(false) }
       >
         <Form layout="vertical" form={ form }>
           {multiImport ? (
