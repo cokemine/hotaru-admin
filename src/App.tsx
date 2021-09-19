@@ -1,6 +1,7 @@
 import React, { FC, Suspense } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import axios from 'axios';
+import { SWRConfig } from 'swr';
 import routes from './routes/global';
 import './App.css';
 import { IResp } from './types';
@@ -21,18 +22,22 @@ axios.interceptors.response.use(_ => _, error => {
 
 const App: FC = () => {
   return (
-    <Router basename={ '/admin' }>
-      <Suspense fallback={ <Loading /> }>
-        <Switch>
-          {
-            routes.map(
-              route => <Route exact={ route.exact !== false } key={ route.path } path={ route.path }
-                component={ route.component } />
-            )
-          }
-        </Switch>
-      </Suspense>
-    </Router>
+    <SWRConfig value={ {
+      fetcher: (url: string) => axios.get<IResp>(url).then(res => res.data)
+    } }>
+      <Router basename={ '/admin' }>
+        <Suspense fallback={ <Loading /> }>
+          <Switch>
+            {
+              routes.map(
+                route => <Route exact={ route.exact !== false } key={ route.path } path={ route.path }
+                  component={ route.component } />
+              )
+            }
+          </Switch>
+        </Suspense>
+      </Router>
+    </SWRConfig>
   );
 };
 
