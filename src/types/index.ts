@@ -5,6 +5,7 @@ interface BaseItem {
   type: string;
   location: string;
   region: string;
+  order: number;
 }
 
 export interface BoxItem extends BaseItem {
