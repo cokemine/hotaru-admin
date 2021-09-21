@@ -23,7 +23,8 @@ axios.interceptors.response.use(_ => _, error => {
 const App: FC = () => {
   return (
     <SWRConfig value={ {
-      fetcher: (url: string) => axios.get<IResp>(url).then(res => res.data)
+      fetcher: (url: string) => axios.get<IResp>(url).then(res => res.data),
+      revalidateOnFocus: false
     } }>
       <Router basename={ '/admin' }>
         <Suspense fallback={ <Loading /> }>

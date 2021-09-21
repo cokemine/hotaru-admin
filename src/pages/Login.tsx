@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Form, Input, Button } from 'antd';
 import axios from 'axios';
-import { useSWRConfig } from 'swr';
 import { notify } from '../utils';
 
 import ImageLight from '../assets/img/login-office.jpeg';
@@ -14,8 +13,6 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 const Login: FC = () => {
 
   const history = useHistory();
-  const { mutate } = useSWRConfig();
-
 
   const onFinish = async (values: { username: string, password: string }) => {
     const { username, password } = values;
@@ -24,7 +21,6 @@ const Login: FC = () => {
     if (!data.code) {
       notify('Success', undefined, 'success');
       localStorage.setItem('token', data.data as string);
-      await mutate('/api/session', false);
       history.push('/dashboard');
     }
   };

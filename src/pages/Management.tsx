@@ -148,8 +148,7 @@ const Management: FC = () => {
               { children }
             </tr>
           );
-        }
-        }
+        } }
       </Draggable>
     );
   };
@@ -191,18 +190,11 @@ const Management: FC = () => {
         data ? <DragDropContext
           onDragEnd={ result => {
             const { destination, source } = result;
-
             if (!destination) return;
             if (destination.droppableId === source.droppableId && destination.index === source.index)
               return;
-            const order: Array<number> = [];
             const newDataSource = arrayMoveImmutable(dataSource, source.index, destination.index);
             mutate({ ...data, data: newDataSource }, false).then();
-            newDataSource.forEach(item => {
-              order.push(item.id);
-            });
-            order.reverse();
-            handleSortOrder(order.join(','));
           } }>
           <Table
             dataSource={ dataSource }
@@ -221,7 +213,14 @@ const Management: FC = () => {
                   setMultiImport(true);
                   setModifyVisible(true);
                 } }>Import</Button>
-                <Button type="primary" danger={ sortOrder } onClick={ () => setSortOrder(val => !val) }>Sort</Button>
+                <Button type="primary" danger={ sortOrder } onClick={ () => {
+                  if (sortOrder) {
+                    const order = dataSource.map(item => item.id);
+                    order.reverse();
+                    handleSortOrder(order.join(','));
+                  }
+                  setSortOrder(val => !val);
+                } }>{ !sortOrder ? 'Sort' : 'Save' }</Button>
               </>
             ) }
           />
