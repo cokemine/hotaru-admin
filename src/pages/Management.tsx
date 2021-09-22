@@ -1,17 +1,22 @@
 import React, { FC, ReactElement, useState } from 'react';
 
-import { Typography, Table, Tag, Modal, Input, Form, Switch, Button } from 'antd';
+import { Typography, Table, Tag, Modal, Input, Form, Switch, Button, AutoComplete } from 'antd';
+import { ColumnsType } from 'antd/es/table';
+import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined, MenuOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import useSWR from 'swr';
 import { arrayMoveImmutable } from 'array-move';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { ColumnsType } from 'antd/es/table';
-import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined, MenuOutlined } from '@ant-design/icons';
+import countries from 'i18n-iso-countries';
 import { IResp, RowServer } from '../types';
 import { notify } from '../utils';
 import Loading from '../components/Loading';
 
 const { Title } = Typography;
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+countries.registerLocale(require('i18n-iso-countries/langs/zh.json'));
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+countries.registerLocale(require('i18n-iso-countries/langs/en.json'));
 
 const Management: FC = () => {
 
@@ -19,7 +24,9 @@ const Management: FC = () => {
   const [ currentNode, setCurrentNode ] = useState<string>('');
   const [ multiImport, setMultiImport ] = useState<boolean>(false);
   const [ sortOrder, setSortOrder ] = useState(false);
+  const [ regionResult, setRegionResult ] = useState<string[]>([]);
   const { data, mutate } = useSWR<IResp>('/api/server');
+
   const [ form ] = Form.useForm();
   const { confirm } = Modal;
   const dataSource = data?.data as RowServer[];
@@ -252,8 +259,27 @@ const Management: FC = () => {
                   <Form.Item label="Location" name="location">
                     <Input />
                   </Form.Item>
-                  <Form.Item label="Region" name="region">
-                    <Input />
+                  <Form.Item label="Region" name="region"
+                    rules={ [ {
+                      validator(_, value) {
+                        if (countries.isValid(value)) return Promise.resolve();
+                        return Promise.reject(new Error('Country not found!'));
+                      }
+                    } ] }
+                  >
+                    <AutoComplete
+                      options={ regionResult.map(value => ({
+                        value,
+                        label: value,
+                      })) }
+                      onChange={ value => {
+                        const code = countries.getAlpha2Code(value, 'zh');
+                        const codeEn = countries.getAlpha2Code(value, 'en');
+                        return setRegionResult([ code, codeEn ].filter(v => !!v));
+                      } }
+                    >
+                      <Input />
+                    </AutoComplete>
                   </Form.Item>
                   <Form.Item label="Disabled" name="disabled" valuePropName="checked">
                     <Switch />
