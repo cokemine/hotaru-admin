@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useState, useMemo } from 'react';
+import React, { FC, ReactElement, useState } from 'react';
 
 import { Typography, Table, Tag, Modal, Input, Form, Switch, Button, AutoComplete } from 'antd';
 import { ColumnsType } from 'antd/es/table';
