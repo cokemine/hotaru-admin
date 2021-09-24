@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useState } from 'react';
+import React, { FC, ReactElement, useState, useMemo } from 'react';
 
 import { Typography, Table, Tag, Modal, Input, Form, Switch, Button, AutoComplete } from 'antd';
 import { ColumnsType } from 'antd/es/table';
@@ -137,19 +137,19 @@ const Management: FC = () => {
     </Droppable>
   );
 
-  const DraggableBodyRow: FC<any> = (props) => {
+  const DraggableBodyRow: FC<any> = props => {
     const index = dataSource.findIndex(x => x.id === props['data-row-key']);
     return (
-      <Draggable draggableId={ props['data-row-key'].toString() } index={ index } isDragDisabled={ !sortOrder }>
+      <Draggable draggableId={ props['data-row-key']?.toString() || 'k' } index={ index } isDragDisabled={ !sortOrder }>
         { provided => {
-          const children = props.children.map((el: ReactElement) => {
+          const children = props.children?.map?.((el: ReactElement) => {
             if (el.props.dataIndex === 'sort') {
               const props = el.props ? { ...el.props } : {};
               props.render = () => <MenuOutlined
                 style={ { cursor: 'grab', color: '#999' } } { ...provided.dragHandleProps } />;
               return React.cloneElement(el, props);
             } else return el;
-          });
+          }) || props.children;
           return (
             <tr { ...props } { ...provided.draggableProps } ref={ provided.innerRef }>
               { children }
