@@ -1,9 +1,9 @@
-import Layout from './Layout';
 import React, { FC } from 'react';
 import { Redirect } from 'react-router-dom';
-import Loading from '../components/Loading';
 import useSWR from 'swr';
+import Loading from '../components/Loading';
 import { IResp } from '../types';
+import Layout from './Layout';
 
 const LayoutHandler: FC = () => {
   const { data, error } = useSWR<IResp>('/api/session');

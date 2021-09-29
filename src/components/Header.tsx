@@ -14,11 +14,11 @@ const Header: FC<Props> = (props) => {
   const { isCollapsed, toggleCollapsed } = props.collapsed;
   return (
     <div className="h-full flex items-center justify-between">
-      { React.createElement(isCollapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
+      {React.createElement(isCollapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
         className: 'text-2xl',
         onClick: toggleCollapsed
-      }) }
-      <Avatar size={ 40 } icon={ <UserOutlined /> } />
+      })}
+      <Avatar size={40} icon={<UserOutlined />} />
     </div>
   );
 };

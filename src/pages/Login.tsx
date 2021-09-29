@@ -3,12 +3,12 @@ import { useHistory } from 'react-router-dom';
 import { Form, Input, Button } from 'antd';
 import axios from 'axios';
 import { useSWRConfig } from 'swr';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { notify } from '../utils';
 
 import ImageLight from '../assets/img/login-office.jpeg';
 
 import { IResp } from '../types';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
 
 
 const Login: FC = () => {
@@ -35,7 +35,7 @@ const Login: FC = () => {
             <img
               aria-hidden="true"
               className="object-cover w-full h-full"
-              src={ ImageLight }
+              src={ImageLight}
               alt="Office"
             />
           </div>
@@ -43,21 +43,21 @@ const Login: FC = () => {
             <h1 className="text-2xl font-semibold text-gray-700 mb-6">NodeStatus</h1>
             <Form
               className="w-full"
-              initialValues={ { remember: true } }
-              onFinish={ onFinish }
+              initialValues={{ remember: true }}
+              onFinish={onFinish}
             >
               <Form.Item
                 name="username"
-                rules={ [ { required: true, message: 'Please input your Username!' } ] }
+                rules={[{ required: true, message: 'Please input your Username!' }]}
               >
-                <Input size="large" prefix={ <UserOutlined /> } placeholder="Username" />
+                <Input size="large" prefix={<UserOutlined />} placeholder="Username" />
               </Form.Item>
               <Form.Item
                 name="password"
-                rules={ [ { required: true, message: 'Please input your Password!' } ] }
+                rules={[{ required: true, message: 'Please input your Password!' }]}
               >
                 <Input size="large"
-                  prefix={ <LockOutlined /> }
+                  prefix={<LockOutlined />}
                   type="password"
                   placeholder="Password"
                 />

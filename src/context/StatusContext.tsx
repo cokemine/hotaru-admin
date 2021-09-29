@@ -41,13 +41,13 @@ const getTimeSince = (updated: number): string => {
 
 export const StatusContextProvider: FC = ({ children }) => {
 
-  const [ status, setStatus ] = useState<IContext>({ servers: [], timeSince: '从未.' });
+  const [status, setStatus] = useState<IContext>({ servers: [], timeSince: '从未.' });
 
   useEffect(() => {
-    const ws = new WebSocket(`${ document.location.protocol.replace('http', 'ws') }${ window.location.host }/public`);
+    const ws = new WebSocket(`${document.location.protocol.replace('http', 'ws')}${window.location.host}/public`);
     ws.onopen = () => console.log('Connect to backend successfully!');
-    ws.onclose = evt => console.log(`WebSocket disconnected: ${ evt.reason }`);
-    ws.onerror = evt => console.log(`An error occurred while connecting to the backend, ${ evt }`);
+    ws.onclose = evt => console.log(`WebSocket disconnected: ${evt.reason}`);
+    ws.onerror = evt => console.log(`An error occurred while connecting to the backend, ${evt}`);
     ws.onmessage = evt => {
       const data: IData = JSON.parse(evt.data);
       const { servers, updated } = data;
@@ -71,6 +71,6 @@ export const StatusContextProvider: FC = ({ children }) => {
     return () => ws.close();
   }, []);
 
-  return <StatusContext.Provider value={ status }>{ children }</StatusContext.Provider>;
+  return <StatusContext.Provider value={status}>{children}</StatusContext.Provider>;
 };
 

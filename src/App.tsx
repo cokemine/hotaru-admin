@@ -10,29 +10,29 @@ import { notify } from './utils';
 
 axios.interceptors.request.use(config => {
   const token = localStorage.getItem('token');
-  config.headers.Authorization = `Bearer ${ token }`;
+  config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
 axios.interceptors.response.use(_ => _, error => {
   const resp = error.response;
   const data: IResp = resp.data;
-  notify(`${ resp.status } ${ resp.statusText }`, data?.msg, 'error');
+  notify(`${resp.status} ${resp.statusText}`, data?.msg, 'error');
   return Promise.reject(error);
 });
 
 const App: FC = () => {
   return (
-    <SWRConfig value={ {
+    <SWRConfig value={{
       fetcher: (url: string) => axios.get<IResp>(url).then(res => res.data),
       revalidateOnFocus: false
-    } }>
-      <Router basename={ '/admin' }>
-        <Suspense fallback={ <Loading /> }>
+    }}>
+      <Router basename={'/admin'}>
+        <Suspense fallback={<Loading />}>
           <Switch>
             {
               routes.map(
-                route => <Route exact={ route.exact !== false } key={ route.path } path={ route.path }
-                  component={ route.component } />
+                route => <Route exact={route.exact !== false} key={route.path} path={route.path}
+                  component={route.component} />
               )
             }
           </Switch>

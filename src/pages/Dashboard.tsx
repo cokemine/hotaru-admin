@@ -1,11 +1,11 @@
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { Col, Row, Typography, Table, Tag } from 'antd';
 import { ColumnsType } from 'antd/es/table';
-import StateCard from '../components/StateCard';
 
 import { BiServer } from 'react-icons/bi';
 import { AiFillWarning } from 'react-icons/ai';
 import { HiOutlineStatusOnline } from 'react-icons/hi';
+import StateCard from '../components/StateCard';
 import RoundIcon from '../components/RoundIcon';
 import { StatusContext } from '../context/StatusContext';
 
@@ -16,7 +16,7 @@ const { Title } = Typography;
 const Dashboard: FC = () => {
 
   const { servers, timeSince } = useContext(StatusContext);
-  const [ count, setCount ] = useState({
+  const [count, setCount] = useState({
     online: 0,
     min: Infinity,
     max: 0,
@@ -42,7 +42,7 @@ const Dashboard: FC = () => {
       max = Math.max(min, record[item.region]);
     }
     setCount({ min, max, online, record });
-  }, [ servers ]);
+  }, [servers]);
 
   const columns: ColumnsType<ITable> = [
     {
@@ -53,11 +53,11 @@ const Dashboard: FC = () => {
         return (
           <div className="flex items-center text-sm">
             <svg viewBox="0 0 100 100" className="mr-3 block h-12 w-12">
-              <use xlinkHref={ `#${ record.region }` } />
+              <use xlinkHref={`#${record.region}`} />
             </svg>
             <div className="whitespace-nowrap">
-              <p className="font-semibold">{ record.name }</p>
-              <p className="text-left text-xs text-gray-600">{ record.location }</p>
+              <p className="font-semibold">{record.name}</p>
+              <p className="text-left text-xs text-gray-600">{record.location}</p>
             </div>
           </div>
         );
@@ -85,15 +85,15 @@ const Dashboard: FC = () => {
         let str = '-';
         if (uptime !== '-') {
           if (uptime >= 86400)
-            str = `${ Math.floor(uptime / 86400) } 天`;
+            str = `${Math.floor(uptime / 86400)} 天`;
           else {
             let h: string | number = Math.floor(uptime / 3600);
             let m: string | number = Math.floor(uptime / 60 % 60);
             let s: string | number = Math.floor(uptime % 60);
-            h < 10 && (h = `0${ h }`);
-            m < 10 && (m = `0${ m }`);
-            s < 10 && (s = `0${ s }`);
-            str = `${ h }:${ m }:${ s }`;
+            h < 10 && (h = `0${h}`);
+            m < 10 && (m = `0${m}`);
+            s < 10 && (s = `0${s}`);
+            str = `${h}:${m}:${s}`;
           }
         }
         return str;
@@ -109,32 +109,32 @@ const Dashboard: FC = () => {
 
   return (
     <>
-      <Title level={ 2 } className="my-6 text-3xl">Dashboard</Title>
-      <Row gutter={ 32 }>
-        <Col xs={ { span: 24 } } lg={ { span: 8 } } className="mb-8">
-          <StateCard title="Servers Total" count={ servers.length } icon={
+      <Title level={2} className="my-6 text-3xl">Dashboard</Title>
+      <Row gutter={32}>
+        <Col xs={{ span: 24 }} lg={{ span: 8 }} className="mb-8">
+          <StateCard title="Servers Total" count={servers.length} icon={
             <RoundIcon
-              icon={ BiServer }
+              icon={BiServer}
               iconColorClass="text-yellow-500"
               bgColorClass="bg-yellow-100"
             />
           }>
           </StateCard>
         </Col>
-        <Col xs={ { span: 24 } } lg={ { span: 8 } } className="mb-8">
-          <StateCard title="Servers Online" count={ count.online } icon={
+        <Col xs={{ span: 24 }} lg={{ span: 8 }} className="mb-8">
+          <StateCard title="Servers Online" count={count.online} icon={
             <RoundIcon
-              icon={ HiOutlineStatusOnline }
+              icon={HiOutlineStatusOnline}
               iconColorClass="text-green-500"
               bgColorClass="bg-green-100"
             />
           }>
           </StateCard>
         </Col>
-        <Col xs={ { span: 24 } } lg={ { span: 8 } } className="mb-8">
-          <StateCard title="Servers Offline" count={ servers.length - count.online } icon={
+        <Col xs={{ span: 24 }} lg={{ span: 8 }} className="mb-8">
+          <StateCard title="Servers Offline" count={servers.length - count.online} icon={
             <RoundIcon
-              icon={ AiFillWarning }
+              icon={AiFillWarning}
               iconColorClass="text-blue-500"
               bgColorClass="bg-blue-100"
             />
@@ -144,9 +144,9 @@ const Dashboard: FC = () => {
       </Row>
       <Table
         className="rounded-lg max-w-full"
-        dataSource={ servers }
-        columns={ columns }
-        footer={ () => <span className="text-xs">最后更新: { timeSince }</span> }
+        dataSource={servers}
+        columns={columns}
+        footer={() => <span className="text-xs">最后更新: {timeSince}</span>}
       />
     </>
   );
