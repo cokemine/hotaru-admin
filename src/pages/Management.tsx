@@ -248,7 +248,7 @@ const Management: FC = () => {
                     <Input />
                   </Form.Item>
                   <Form.Item label="Password" name="password">
-                    <Input placeholder="留空不修改" />
+                    <Input.Password placeholder="留空不修改" />
                   </Form.Item>
                   <Form.Item label="Name" name="name">
                     <Input />
