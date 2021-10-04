@@ -33,7 +33,7 @@ const Management: FC = () => {
 
   const columns: ColumnsType<RowServer> = [
     {
-      title: 'Sort',
+      title: 'SORT',
       dataIndex: 'sort',
       width: 30,
       align: 'center',
@@ -194,101 +194,102 @@ const Management: FC = () => {
     <>
       <Title level={2} className="my-6">Management</Title>
       {
-        data ? <DragDropContext
-          onDragEnd={result => {
-            const { destination, source } = result;
-            if (!destination) return;
-            if (destination.droppableId === source.droppableId && destination.index === source.index)
-              return;
-            const newDataSource = arrayMoveImmutable(dataSource, source.index, destination.index);
-            mutate({ ...data, data: newDataSource }, false).then();
-          }}>
-          <Table
-            dataSource={dataSource}
-            columns={columns}
-            rowKey="id"
-            components={{
-              body: {
-                wrapper: DraggableContainer,
-                row: DraggableBodyRow,
-              },
-            }}
-            footer={() => (
-              <>
-                <Button type="primary" className="mr-6" onClick={() => setModifyVisible(true)}>New</Button>
-                <Button type="primary" className="mr-6" onClick={() => {
-                  setMultiImport(true);
-                  setModifyVisible(true);
-                }}>Import</Button>
-                <Button type="primary" danger={sortOrder} onClick={() => {
-                  if (sortOrder) {
-                    const order = dataSource.map(item => item.id);
-                    order.reverse();
-                    handleSortOrder(order.join(','));
-                  }
-                  setSortOrder(val => !val);
-                }}>{!sortOrder ? 'Sort' : 'Save'}</Button>
-              </>
-            )}
-          />
-          <Modal
-            title={currentNode ? 'Modify Configuration' : 'New'}
-            visible={modifyVisible}
-            onOk={currentNode ? handleModify : handleCreate}
-            onCancel={() => resetStatus(false)}
-          >
-            <Form layout="vertical" form={form}>
-              {multiImport ? (
-                <Form.Item label="Data" name="data">
-                  <Input.TextArea rows={4} />
-                </Form.Item>
-              ) : (
+        data
+          ? <DragDropContext
+            onDragEnd={result => {
+              const { destination, source } = result;
+              if (!destination) return;
+              if (destination.droppableId === source.droppableId && destination.index === source.index)
+                return;
+              const newDataSource = arrayMoveImmutable(dataSource, source.index, destination.index);
+              mutate({ ...data, data: newDataSource }, false).then();
+            }}>
+            <Table
+              dataSource={dataSource}
+              columns={columns}
+              rowKey="id"
+              components={{
+                body: {
+                  wrapper: DraggableContainer,
+                  row: DraggableBodyRow,
+                },
+              }}
+              footer={() => (
                 <>
-                  <Form.Item label="Username" name="username">
-                    <Input />
-                  </Form.Item>
-                  <Form.Item label="Password" name="password">
-                    <Input.Password placeholder="留空不修改" />
-                  </Form.Item>
-                  <Form.Item label="Name" name="name">
-                    <Input />
-                  </Form.Item>
-                  <Form.Item label="Type" name="type">
-                    <Input />
-                  </Form.Item>
-                  <Form.Item label="Location" name="location">
-                    <Input />
-                  </Form.Item>
-                  <Form.Item label="Region" name="region"
-                    rules={[{
-                      validator(_, value) {
-                        if (countries.isValid(value)) return Promise.resolve();
-                        return Promise.reject(new Error('Country not found!'));
-                      }
-                    }]}
-                  >
-                    <AutoComplete
-                      options={regionResult.map(value => ({
-                        value,
-                        label: value,
-                      }))}
-                      onChange={value => {
-                        const code = countries.getAlpha2Code(value, 'zh');
-                        const codeEn = countries.getAlpha2Code(value, 'en');
-                        return setRegionResult([code, codeEn].filter(v => !!v));
-                      }}
-                    >
-                      <Input />
-                    </AutoComplete>
-                  </Form.Item>
-                  <Form.Item label="Disabled" name="disabled" valuePropName="checked">
-                    <Switch />
-                  </Form.Item>
+                  <Button type="primary" className="mr-6" onClick={() => setModifyVisible(true)}>New</Button>
+                  <Button type="primary" className="mr-6" onClick={() => {
+                    setMultiImport(true);
+                    setModifyVisible(true);
+                  }}>Import</Button>
+                  <Button type="primary" danger={sortOrder} onClick={() => {
+                    if (sortOrder) {
+                      const order = dataSource.map(item => item.id);
+                      order.reverse();
+                      handleSortOrder(order.join(','));
+                    }
+                    setSortOrder(val => !val);
+                  }}>{!sortOrder ? 'Sort' : 'Save'}</Button>
                 </>
               )}
-            </Form>
-          </Modal>
-        </DragDropContext>
+            />
+            <Modal
+              title={currentNode ? 'Modify Configuration' : 'New'}
+              visible={modifyVisible}
+              onOk={currentNode ? handleModify : handleCreate}
+              onCancel={() => resetStatus(false)}
+            >
+              <Form layout="vertical" form={form}>
+                {multiImport ? (
+                  <Form.Item label="Data" name="data">
+                    <Input.TextArea rows={4} />
+                  </Form.Item>
+                ) : (
+                  <>
+                    <Form.Item label="Username" name="username">
+                      <Input />
+                    </Form.Item>
+                    <Form.Item label="Password" name="password">
+                      <Input.Password placeholder="留空不修改" />
+                    </Form.Item>
+                    <Form.Item label="Name" name="name">
+                      <Input />
+                    </Form.Item>
+                    <Form.Item label="Type" name="type">
+                      <Input />
+                    </Form.Item>
+                    <Form.Item label="Location" name="location">
+                      <Input />
+                    </Form.Item>
+                    <Form.Item label="Region" name="region"
+                      rules={[{
+                        validator(_, value) {
+                          if (countries.isValid(value)) return Promise.resolve();
+                          return Promise.reject(new Error('Country not found!'));
+                        }
+                      }]}
+                    >
+                      <AutoComplete
+                        options={regionResult.map(value => ({
+                          value,
+                          label: value,
+                        }))}
+                        onChange={value => {
+                          const code = countries.getAlpha2Code(value, 'zh');
+                          const codeEn = countries.getAlpha2Code(value, 'en');
+                          return setRegionResult([code, codeEn].filter(v => !!v));
+                        }}
+                      >
+                        <Input />
+                      </AutoComplete>
+                    </Form.Item>
+                    <Form.Item label="Disabled" name="disabled" valuePropName="checked">
+                      <Switch />
+                    </Form.Item>
+                  </>
+                )}
+              </Form>
+            </Modal>
+          </DragDropContext>
           : <Loading />
       }
     </>
